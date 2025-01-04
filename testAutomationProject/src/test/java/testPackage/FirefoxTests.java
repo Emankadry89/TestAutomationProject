@@ -2,6 +2,7 @@ package testPackage;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
@@ -17,12 +18,15 @@ import java.time.Duration;
 public class FirefoxTests {
     WebDriver driver;
     Wait<WebDriver> wait;
+    FirefoxOptions firefoxOptions;
     DuckduckgoHomePage home;
     DuckduckgoSearchResultsPage searchResults;
 
     @BeforeClass
     public void beforeClass() {
-        driver = new FirefoxDriver();
+        firefoxOptions = new FirefoxOptions();
+        firefoxOptions.enableBiDi();
+        driver = new FirefoxDriver(firefoxOptions);
         driver.manage().window().setPosition(new Point(0, 0));
         driver.manage().window().setSize(new Dimension(1024, 768));
         wait = new FluentWait<>(driver)

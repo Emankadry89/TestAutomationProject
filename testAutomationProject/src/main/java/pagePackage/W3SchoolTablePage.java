@@ -16,10 +16,10 @@ public class W3SchoolTablePage {
     }
 
     //Locators
-    By ernstHandelCountry = By.xpath("//table[@id='customers']/tbody/tr[td[text()='Ernst Handel']]/td[last()]");
+    By ernstHandelCountry = By.xpath("//tr[td[text()='Ernst Handel']]/td[3]");
 
     //Methods
-    public void navigete(){
+    public void navigate(){
         driver.navigate().to(url);
     }
 
