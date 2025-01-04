@@ -12,7 +12,7 @@ public class DuckduckgoHomePage {
     String url = "https://duckduckgo.com/";
 
     //Locators
-    By pageLogo = By.xpath("//section[@class='header_headerLeft__gTUAg header_headerSection__C99zW']/a/img");
+    By pageLogo = By.xpath("//section[not(contains(@class, 'shrink'))]/a/img");
     By searchBar = By.xpath("//input[@class='searchbox_input__bEGm3']");
 
     //Constructor
