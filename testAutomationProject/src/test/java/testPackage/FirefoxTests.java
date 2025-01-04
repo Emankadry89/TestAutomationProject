@@ -1,9 +1,6 @@
 package testPackage;
 
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -31,7 +28,8 @@ public class FirefoxTests {
         wait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(2))
                 .pollingEvery(Duration.ofMillis(300))
-                .ignoring(ElementNotInteractableException.class);
+                .ignoring(ElementNotInteractableException.class)
+                .ignoring(NoSuchElementException.class);
         home = new DuckduckgoHomePage(driver);
         searchResults = new DuckduckgoSearchResultsPage(driver);
     }
@@ -47,11 +45,11 @@ public class FirefoxTests {
         home.searchForQuery("TestNG");
         wait.until(
                 d -> {
-                    searchResults.isForthResultTitleDisplayed();
+                    String forthResultTitle =  searchResults.getForthResultTitle();
+                    Assert.assertEquals(forthResultTitle, "TestNG Tutorial - GeeksforGeeks");
                     return true;
                 });
-        String forthResultTitle = searchResults.getForthResultTitle();
-        Assert.assertEquals(forthResultTitle, "TestNG Tutorial - GeeksforGeeks");
+
     }
 
     @AfterClass
