@@ -11,8 +11,11 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pagePackage.W3SchoolTablePage;
+import utils.JsonReader;
 
+import java.io.IOException;
 import java.time.Duration;
+import java.util.Map;
 
 public class W3SchoolTableTests {
 
@@ -20,9 +23,10 @@ public class W3SchoolTableTests {
     Wait<WebDriver> wait;
     ChromeOptions chromeOptions;
     W3SchoolTablePage table;
+    Map<String, String> testData;
 
     @BeforeClass
-    public void beforeClass() {
+    public void beforeClass() throws IOException {
         chromeOptions = new ChromeOptions();
         chromeOptions.enableBiDi();
         chromeOptions.setPageLoadStrategy(PageLoadStrategy.NONE);
@@ -37,6 +41,7 @@ public class W3SchoolTableTests {
                 .ignoring(StaleElementReferenceException.class)
                 .ignoring(AssertionError.class);
         table = new W3SchoolTablePage(driver);
+        testData = JsonReader.readJson("src/test/resources/testData/tableData.json");
     }
 
     @BeforeMethod
@@ -49,7 +54,8 @@ public class W3SchoolTableTests {
         wait.until(
                 d -> {
                     String ernstHandleCountry = table.getErnstHandelCountry();
-                    Assert.assertEquals(ernstHandleCountry, "Austria");
+                    String expectedCountry = testData.get("expected Country");
+                    Assert.assertEquals(ernstHandleCountry, expectedCountry);
                     return true;
                 });
     }

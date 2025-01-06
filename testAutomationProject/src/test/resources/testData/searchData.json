@@ -1,0 +1,8 @@
+{
+  "firstSearchTerm": "Selenium WebDriver",
+  "firstExpectedLink": "https://www.selenium.dev/documentation/webdriver/",
+  "secondSearchTerm": "Cucumber IO",
+  "secondExpectedLink": "https://www.linkedin.com",
+  "firefoxSearchTerm": "TestNG",
+  "firefoxExpectedTitle": "TestNG Tutorial - GeeksforGeeks"
+}

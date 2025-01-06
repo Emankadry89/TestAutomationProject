@@ -10,7 +10,7 @@ public class DuckduckgoSearchResultsPage {
 
     //Locators
     By firstSearchResultLink = By.xpath("//article[@id='r1-0']/div/h2/a");
-    By forthSearchResultTitle = By.xpath("//article[@id='r1-3']/div/h2/a/span");
+    By forthSearchResultTitle = By.xpath("//article[@id='r1-4']/div/h2/a/span");
     By moreResultsButton = By.id("more-results");
     By secondPageSecondSearchResultLink = By.xpath("//article[@id='r1-11']/div/h2/a");
 

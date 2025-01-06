@@ -12,8 +12,11 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pagePackage.DuckduckgoHomePage;
 import pagePackage.DuckduckgoSearchResultsPage;
+import utils.JsonReader;
 
+import java.io.IOException;
 import java.time.Duration;
+import java.util.Map;
 
 public class FirefoxTests {
     WebDriver driver;
@@ -21,9 +24,10 @@ public class FirefoxTests {
     FirefoxOptions firefoxOptions;
     DuckduckgoHomePage home;
     DuckduckgoSearchResultsPage searchResults;
+    Map<String, String> testData;
 
     @BeforeClass
-    public void beforeClass() {
+    public void beforeClass() throws IOException {
         firefoxOptions = new FirefoxOptions();
         firefoxOptions.enableBiDi();
         driver = new FirefoxDriver(firefoxOptions);
@@ -36,6 +40,7 @@ public class FirefoxTests {
                 .ignoring(NoSuchElementException.class);
         home = new DuckduckgoHomePage(driver);
         searchResults = new DuckduckgoSearchResultsPage(driver);
+        testData = JsonReader.readJson("src/test/resources/testData/searchData.json");
     }
 
     @BeforeMethod
@@ -46,11 +51,13 @@ public class FirefoxTests {
 
     @Test
     public void verifyForthResultText() {
-        home.searchForQuery("TestNG");
+        String searchQuery = testData.get("firefoxSearchTerm");
+        home.searchForQuery(searchQuery);
         wait.until(
                 d -> {
                     String forthResultTitle =  searchResults.getForthResultTitle();
-                    Assert.assertEquals(forthResultTitle, "TestNG Tutorial - GeeksforGeeks");
+                    String expectedTitle = testData.get("firefoxExpectedTitle");
+                    Assert.assertEquals(forthResultTitle, expectedTitle);
                     return true;
                 });
 

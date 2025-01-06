@@ -13,26 +13,27 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pagePackage.DuckduckgoHomePage;
 import pagePackage.DuckduckgoSearchResultsPage;
+import utils.JsonReader;
 
+import java.io.IOException;
 import java.time.Duration;
+import java.util.Map;
 
 public class DuckduckgoSearchResultsTests {
     WebDriver driver;
     Wait<WebDriver> wait;
     DuckduckgoHomePage home;
     DuckduckgoSearchResultsPage searchResults;
+    Map<String, String> testData;
 
     @BeforeClass
-    public void beforeClass() {
+    public void beforeClass() throws IOException {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        wait = new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(2))
-                .pollingEvery(Duration.ofMillis(300))
-                .ignoring(ElementNotInteractableException.class)
-                .ignoring(NoSuchElementException.class);
+        wait = new FluentWait<>(driver).withTimeout(Duration.ofSeconds(2)).pollingEvery(Duration.ofMillis(300)).ignoring(ElementNotInteractableException.class).ignoring(NoSuchElementException.class);
         home = new DuckduckgoHomePage(driver);
         searchResults = new DuckduckgoSearchResultsPage(driver);
+        testData = JsonReader.readJson("src/test/resources/testData/searchData.json");
     }
 
     @BeforeMethod
@@ -42,22 +43,25 @@ public class DuckduckgoSearchResultsTests {
 
     @Test
     public void verifyFirstResultLink() {
-        home.searchForQuery("Selenium WebDriver");
+        String firstSearchQuery = testData.get("firstSearchTerm");
+        home.searchForQuery(firstSearchQuery);
         String firstResultLink = searchResults.getFirstResultLink();
-        Assert.assertEquals(firstResultLink, "https://www.selenium.dev/documentation/webdriver/");
+        String firstExpectedLink = testData.get("firstExpectedLink");
+        Assert.assertEquals(firstResultLink, firstExpectedLink);
     }
 
     @Test
     public void verifyTheLinkOfSecondResult() {
-        home.searchForQuery("Cucumber IO");
+        String secondSearchQuery = testData.get("secondSearchTerm");
+        home.searchForQuery(secondSearchQuery);
         searchResults.scrollDown();
         searchResults.clickMoreResultsButton();
-        wait.until(
-                d -> {
-                    String secondPageSecondResultLink = searchResults.getSecondPageSecondResultLink();
-                    Assert.assertTrue(secondPageSecondResultLink.contains("https://www.linkedin.com"));
-                    return true;
-                });
+        wait.until(d -> {
+            String secondPageSecondResultLink = searchResults.getSecondPageSecondResultLink();
+            String secondExpectedLink = testData.get("secondExpectedLink");
+            Assert.assertTrue(secondPageSecondResultLink.contains(secondExpectedLink));
+            return true;
+        });
     }
 
     @AfterClass

@@ -9,19 +9,25 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pagePackage.FileUploadedPage;
 import pagePackage.UploadFilePage;
+import utils.JsonReader;
+
+import java.io.IOException;
+import java.util.Map;
 
 public class UploadFileTests {
 
     WebDriver driver;
     UploadFilePage file;
     FileUploadedPage message;
+    Map<String, String> testData;
 
     @BeforeClass
-    public void beforeClass(){
+    public void beforeClass() throws IOException {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         file = new UploadFilePage(driver);
         message = new FileUploadedPage(driver);
+        testData = JsonReader.readJson("src/test/resources/testData/uploadFileData.json");
     }
 
     @BeforeMethod
@@ -34,7 +40,8 @@ public class UploadFileTests {
         file.uploadFile("ladybug.jpeg");
         file.submitFile();
         String successMessage = message.getUploadedMessage();
-        Assert.assertEquals(successMessage, "File Uploaded!");
+        String expectedMessage = testData.get("expectedMessage");
+        Assert.assertEquals(successMessage, expectedMessage);
 
     }
 

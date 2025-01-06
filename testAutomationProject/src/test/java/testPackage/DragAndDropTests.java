@@ -8,17 +8,23 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pagePackage.DragAndDropPage;
+import utils.JsonReader;
+
+import java.io.IOException;
+import java.util.Map;
 
 public class DragAndDropTests {
 
     WebDriver driver;
     DragAndDropPage box;
+    Map<String, String> testData;
 
     @BeforeClass
-    public void beforeClass() {
+    public void beforeClass() throws IOException {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         box = new DragAndDropPage(driver);
+        testData = JsonReader.readJson("src/test/resources/testData/dragDropData.json");
     }
 
     @BeforeMethod
@@ -30,7 +36,8 @@ public class DragAndDropTests {
     public void dragAndDropBox() {
         box.dragAndDropTheBox();
         String text = box.getDropBoxText();
-        Assert.assertEquals(text, "Dropped!");
+        String expectedMessage = testData.get("expectedMessage");
+        Assert.assertEquals(text, expectedMessage);
     }
 
     @AfterClass
