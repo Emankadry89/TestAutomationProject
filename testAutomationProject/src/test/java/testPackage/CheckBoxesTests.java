@@ -1,13 +1,10 @@
 package testPackage;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pagePackage.CheckBoxesPage;
+import utils.BrowserFactory;
 
 public class CheckBoxesTests {
 
@@ -15,9 +12,9 @@ public class CheckBoxesTests {
     CheckBoxesPage checkBoxes;
 
     @BeforeClass
-    public void beforeClass(){
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+    @Parameters({ "target-browser" })
+    public void beforeClass(@Optional("chrome") String browser){
+        driver= BrowserFactory.getDriver();
         checkBoxes = new CheckBoxesPage(driver);
     }
 
@@ -39,6 +36,6 @@ public class CheckBoxesTests {
 
     @AfterClass
     public void afterClass(){
-        driver.quit();
+        BrowserFactory.quitDriver();
     }
 }
