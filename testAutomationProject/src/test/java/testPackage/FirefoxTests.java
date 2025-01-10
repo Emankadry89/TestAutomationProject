@@ -34,7 +34,7 @@ public class FirefoxTests {
         driver.manage().window().setPosition(new Point(0, 0));
         driver.manage().window().setSize(new Dimension(1024, 768));
         wait = new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(2))
+                .withTimeout(Duration.ofSeconds(4))
                 .pollingEvery(Duration.ofMillis(300))
                 .ignoring(ElementNotInteractableException.class)
                 .ignoring(NoSuchElementException.class);

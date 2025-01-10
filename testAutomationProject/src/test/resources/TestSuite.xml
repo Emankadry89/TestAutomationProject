@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="AllTestsSuite" parallel="tests" thread-count="2">
+    <test name="Tests">
+        <classes>
+            <class name="testPackage.CheckBoxesTests" />
+            <class name="testPackage.DragAndDropTests" />
+            <class name="testPackage.DuckduckgoHomeTests" />
+            <class name="testPackage.DuckduckgoSearchResultsTests" />
+            <class name="testPackage.FirefoxTests" />
+            <class name="testPackage.SeleniumWaitPracticeTest" />
+            <class name="testPackage.UploadFileTests" />
+            <class name="testPackage.W3SchoolTableTests" />
+        </classes>
+    </test>
+</suite>

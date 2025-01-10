@@ -30,7 +30,7 @@ public class DuckduckgoSearchResultsTests {
     public void beforeClass() throws IOException {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        wait = new FluentWait<>(driver).withTimeout(Duration.ofSeconds(2)).pollingEvery(Duration.ofMillis(300)).ignoring(ElementNotInteractableException.class).ignoring(NoSuchElementException.class);
+        wait = new FluentWait<>(driver).withTimeout(Duration.ofSeconds(3)).pollingEvery(Duration.ofMillis(300)).ignoring(ElementNotInteractableException.class).ignoring(NoSuchElementException.class);
         home = new DuckduckgoHomePage(driver);
         searchResults = new DuckduckgoSearchResultsPage(driver);
         testData = JsonReader.readJson("src/test/resources/testData/searchData.json");
