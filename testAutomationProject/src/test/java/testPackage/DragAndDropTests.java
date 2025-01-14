@@ -1,16 +1,15 @@
 package testPackage;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pagePackage.DragAndDropPage;
 import utils.JsonReader;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Map;
 
 public class DragAndDropTests {
@@ -19,16 +18,14 @@ public class DragAndDropTests {
     DragAndDropPage box;
     Map<String, String> testData;
 
-    @BeforeClass
-    public void beforeClass() throws IOException {
-        driver = new ChromeDriver();
+    @BeforeMethod
+    public void setup() throws IOException {
+        URL hubUrl = new URL("http://localhost:4444");
+        ChromeOptions chromeOptions = new ChromeOptions();
+        driver = new RemoteWebDriver(hubUrl, chromeOptions);
         driver.manage().window().maximize();
         box = new DragAndDropPage(driver);
         testData = JsonReader.readJson("src/test/resources/testData/dragDropData.json");
-    }
-
-    @BeforeMethod
-    public void beforeMethod() {
         box.openDragDropPage();
     }
 
@@ -40,8 +37,8 @@ public class DragAndDropTests {
         Assert.assertEquals(text, expectedMessage);
     }
 
-    @AfterClass
-    public void afterClass() {
+    @AfterMethod
+    public void tearDown() {
         driver.quit();
     }
 }
