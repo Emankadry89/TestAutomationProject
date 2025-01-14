@@ -20,9 +20,9 @@ public class DragAndDropTests {
 
     @BeforeMethod
     public void setup() throws IOException {
-        URL hubUrl = new URL("http://localhost:4444");
+        URL gridUrl = new URL("http://localhost:4444");
         ChromeOptions chromeOptions = new ChromeOptions();
-        driver = new RemoteWebDriver(hubUrl, chromeOptions);
+        driver = new RemoteWebDriver(gridUrl, chromeOptions);
         driver.manage().window().maximize();
         box = new DragAndDropPage(driver);
         testData = JsonReader.readJson("src/test/resources/testData/dragDropData.json");
