@@ -4,10 +4,9 @@ import org.openqa.selenium.WebDriver;
 
 public class SeleniumWaitPracticePage {
 
-    WebDriver driver;
-
     //Variables
-    String url = "https://www.selenium.dev/selenium/web/dynamic.html";
+    private final WebDriver driver;
+    private final String url = "https://www.selenium.dev/selenium/web/dynamic.html";
 
     //constructor
     public SeleniumWaitPracticePage(WebDriver driver) {
@@ -15,8 +14,8 @@ public class SeleniumWaitPracticePage {
     }
 
     //Locators
-    By addBox = By.id("adder");
-    By redBox = By.id("box0");
+    private final By addBox = By.id("adder");
+    private final By redBox = By.id("box0");
 
     //Methods
     public void navigate() {

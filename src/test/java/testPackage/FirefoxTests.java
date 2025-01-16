@@ -6,8 +6,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pagePackage.DuckduckgoHomePage;
@@ -26,8 +25,8 @@ public class FirefoxTests {
     DuckduckgoSearchResultsPage searchResults;
     Map<String, String> testData;
 
-    @BeforeClass
-    public void beforeClass() throws IOException {
+    @BeforeMethod
+    public void setup() throws IOException {
         firefoxOptions = new FirefoxOptions();
         firefoxOptions.enableBiDi();
         driver = new FirefoxDriver(firefoxOptions);
@@ -41,11 +40,6 @@ public class FirefoxTests {
         home = new DuckduckgoHomePage(driver);
         searchResults = new DuckduckgoSearchResultsPage(driver);
         testData = JsonReader.readJson("src/test/resources/testData/searchData.json");
-    }
-
-    @BeforeMethod
-    public void beforeMethod() {
-
         home.navigate();
     }
 
@@ -55,7 +49,7 @@ public class FirefoxTests {
         home.searchForQuery(searchQuery);
         wait.until(
                 d -> {
-                    String forthResultTitle =  searchResults.getForthResultTitle();
+                    String forthResultTitle =  searchResults.getForthResultTitle(4);
                     String expectedTitle = testData.get("firefoxExpectedTitle");
                     Assert.assertEquals(forthResultTitle, expectedTitle);
                     return true;
@@ -63,8 +57,8 @@ public class FirefoxTests {
 
     }
 
-    @AfterClass
-    public void afterClass() {
+    @AfterMethod
+    public void tearDown() {
         driver.quit();
     }
 }

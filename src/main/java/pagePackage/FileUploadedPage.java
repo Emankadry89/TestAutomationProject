@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class FileUploadedPage {
-    WebDriver driver;
+    private final WebDriver driver;
 
     //Constructor
     public FileUploadedPage(WebDriver driver){
@@ -12,7 +12,7 @@ public class FileUploadedPage {
     }
 
     //Locators
-    By fileUploadedMessage = By.tagName("h3");
+    private final By fileUploadedMessage = By.tagName("h3");
 
     //Methods
     public String getUploadedMessage(){

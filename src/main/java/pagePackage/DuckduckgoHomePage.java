@@ -6,14 +6,13 @@ import org.openqa.selenium.WebDriver;
 
 public class DuckduckgoHomePage {
 
-    WebDriver driver;
-
     //variables
-    String url = "https://duckduckgo.com/";
+    private final WebDriver driver;
+    private final String url = "https://duckduckgo.com/";
 
     //Locators
-    By pageLogo = By.xpath("//section[not(contains(@class, 'shrink'))]/a/img");
-    By searchBar = By.xpath("//input[@class='searchbox_input__bEGm3']");
+    private final By pageLogo = By.xpath("//section[not(contains(@class, 'shrink'))]/a/img");
+    private final By searchBar = By.xpath("//input[@class='searchbox_input__bEGm3']");
 
     //Constructor
     public DuckduckgoHomePage(WebDriver driver) {

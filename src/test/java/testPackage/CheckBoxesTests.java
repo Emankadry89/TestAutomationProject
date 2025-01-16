@@ -1,20 +1,16 @@
 package testPackage;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pagePackage.CheckBoxesPage;
-import utils.BrowserFactory;
+import testBase.TestBase;
 
-public class CheckBoxesTests {
+public class CheckBoxesTests extends TestBase {
 
-    WebDriver driver;
-    CheckBoxesPage checkBoxes;
+    private CheckBoxesPage checkBoxes;
 
     @BeforeMethod
-    @Parameters({"target-browser"})
-    public void setup(@Optional("chrome") String browser) {
-        driver = BrowserFactory.getDriver();
+    public void setup() {
         checkBoxes = new CheckBoxesPage(driver);
         checkBoxes.openCheckBoxesPage();
     }
@@ -28,10 +24,5 @@ public class CheckBoxesTests {
     public void verifySecondCheckBoxIsChecked() {
         boolean checkBox2IsChecked = checkBoxes.isCheckBox2Checked();
         Assert.assertTrue(checkBox2IsChecked);
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        BrowserFactory.quitDriver();
     }
 }

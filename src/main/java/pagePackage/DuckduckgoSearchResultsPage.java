@@ -6,13 +6,13 @@ import org.openqa.selenium.WebDriver;
 
 public class DuckduckgoSearchResultsPage {
 
-    WebDriver driver;
+    private final WebDriver driver;
 
     //Locators
-    By firstSearchResultLink = By.xpath("//article[@id='r1-0']/div/h2/a");
-    By forthSearchResultTitle = By.xpath("//article[@id='r1-4']/div/h2/a/span");
-    By moreResultsButton = By.id("more-results");
-    By secondPageSecondSearchResultLink = By.xpath("//article[@id='r1-11']/div/h2/a");
+    private By firstSearchResultLink ;
+    private By forthSearchResultTitle ;
+    private final By moreResultsButton = By.id("more-results");
+    private By secondPageSecondSearchResultLink ;
 
 
     //Constructor
@@ -21,25 +21,22 @@ public class DuckduckgoSearchResultsPage {
     }
 
     //Methods
-    public String getFirstResultLink() {
+    public String getFirstResultLink(int resultNumber) {
+        firstSearchResultLink = By.xpath("(//li[@data-layout='organic'])["+resultNumber+"]//a[@data-testid='result-title-a']");
         return driver.findElement(firstSearchResultLink).getDomAttribute("href");
 
     }
 
-    public String getForthResultTitle(){
+    public String getForthResultTitle(int resultNumber){
+        forthSearchResultTitle = By.xpath("(//li[@data-layout='organic'])["+resultNumber+"]//a[@data-testid='result-title-a']");
         return driver.findElement(forthSearchResultTitle).getText();
     }
 
-    public void scrollDown() {
+    public String getSecondPageSecondResultLink(int resultNumber) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
-    }
-
-    public void clickMoreResultsButton(){
         driver.findElement(moreResultsButton).click();
-    }
-
-    public String getSecondPageSecondResultLink() {
+        secondPageSecondSearchResultLink = By.xpath("(//li[@data-layout='organic'])["+resultNumber+"]//a[@data-testid='result-title-a']");
         return driver.findElement(secondPageSecondSearchResultLink).getDomAttribute("href");
 
     }

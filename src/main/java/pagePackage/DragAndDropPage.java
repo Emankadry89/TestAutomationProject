@@ -6,10 +6,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 public class DragAndDropPage {
-    WebDriver driver;
 
     //Variables
-    String url = "https://jqueryui.com/resources/demos/droppable/default.html";
+    private final WebDriver driver;
+    private final String url = "https://jqueryui.com/resources/demos/droppable/default.html";
 
     //Constructor
     public DragAndDropPage(WebDriver driver){
@@ -17,9 +17,9 @@ public class DragAndDropPage {
     }
 
     //Locators
-    By dragBox = By.id("draggable");
-    By dropBox = By.id("droppable");
-    By droppedMessage = By.xpath("//div[@id='droppable']/p");
+    private final By dragBox = By.id("draggable");
+    private final By dropBox = By.id("droppable");
+    private final By droppedMessage = By.xpath("//div[@id='droppable']/p");
 
     //Methods
     public void openDragDropPage(){

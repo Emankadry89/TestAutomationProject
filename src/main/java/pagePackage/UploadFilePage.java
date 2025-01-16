@@ -2,27 +2,27 @@ package pagePackage;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
 import java.net.URL;
 import java.nio.file.Paths;
 
 public class UploadFilePage {
 
-    WebDriver driver;
-
     //Variable
-    String url = "http://the-internet.herokuapp.com/upload";
+    private final WebDriver driver;
+    private final String url = "http://the-internet.herokuapp.com/upload";
 
     //Constructor
-    public UploadFilePage(WebDriver driver){
+    public UploadFilePage(WebDriver driver) {
         this.driver = driver;
     }
 
     //Locators
-    By fileUploadButton = By.id("file-upload");
-    By fileSubmitButton = By.id("file-submit");
+    private final By fileUploadButton = By.id("file-upload");
+    private final By fileSubmitButton = By.id("file-submit");
 
     //Methods
-    public void openUploadFilePage(){
+    public void openUploadFilePage() {
         driver.navigate().to(url);
     }
 
@@ -43,7 +43,7 @@ public class UploadFilePage {
         }
     }
 
-    public void submitFile(){
+    public void submitFile() {
         driver.findElement(fileSubmitButton).click();
     }
 }
