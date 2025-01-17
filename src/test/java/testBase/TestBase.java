@@ -12,6 +12,7 @@ import org.testng.annotations.Parameters;
 import utils.BrowserFactory;
 
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.time.Duration;
 
 public class TestBase {
@@ -20,7 +21,7 @@ public class TestBase {
 
     @BeforeMethod
     @Parameters({"target-browser"})
-    public void setup(@Optional("chrome") String browser) throws MalformedURLException {
+    public void setup(@Optional("chrome") String browser) throws MalformedURLException, URISyntaxException {
         driver = BrowserFactory.getDriver();
         wait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(4))

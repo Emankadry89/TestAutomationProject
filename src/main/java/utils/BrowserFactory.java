@@ -7,20 +7,21 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class BrowserFactory {
 
     private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
-    public static WebDriver getDriver() throws MalformedURLException {
+    public static WebDriver getDriver() throws MalformedURLException, URISyntaxException {
         if (driver.get() == null) {
             String browser = ConfigReader.getProperty("TargetBrowser").toLowerCase();
 
             switch (browser) {
                 case "chrome" -> driver.set(new ChromeDriver());
                 case "firefox" -> driver.set(new FirefoxDriver());
-                case "seleniumgrid" -> driver.set(new RemoteWebDriver(new URL("http://localhost:4444"), new ChromeOptions()));
+                case "seleniumgrid" -> driver.set(new RemoteWebDriver(new URI("http://localhost:4444").toURL(), new ChromeOptions()));
                 default ->
                     throw new IllegalArgumentException("Unsupported browser: " + browser);
             }
